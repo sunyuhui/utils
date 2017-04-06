@@ -4,9 +4,9 @@
 
 
 /**
- * [exports 判断变量数据类型]
- * @param  {[type]} value [要判断的变量]
- * @return {[type]}       [构造函数形式的类型]
+ * [exports value]
+ * @param  {} value [value]
+ * @return {[String]}       [type of value]
  *  "Object"
 	"Number"
 	"Function"
