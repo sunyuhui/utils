@@ -17,7 +17,7 @@ define('cmp/pagination', function(require,exports, module) {
 		}, options);
 
 		var paginationStr = getPage(options.currentPage, options.totalPage);
-		$('.pagination-list').html(paginationStr);
+		$('.pagination-container').html(paginationStr);
 
 		bindEvent(options);
 
@@ -75,10 +75,10 @@ define('cmp/pagination', function(require,exports, module) {
 	 * @return {[type]}       [description]
 	 */
 	function bindEvent(options) {
-		$(document).off('click', '.pagination-list a').on('click', '.pagination-list a', function() {
+		$(document).off('click', '.pagination-container a').on('click', '.pagination-container a', function() {
 			var $this = $(this);
 			var pageNum;
-			var currentPage = +$('.pagination-list a.active').text();
+			var currentPage = +$('.pagination-container a.active').text();
 			if( $this.hasClass('prePage') ) {
 				//点击【上一页】
 				pageNum = currentPage - 1;
@@ -102,7 +102,7 @@ define('cmp/pagination', function(require,exports, module) {
 				options.callback && options.callback(res);
 				// 更新页码
 				var pageHtml = getPage(pageNum, options.totalPage);
-				$('.pagination-list').html(pageHtml);
+				$('.pagination-container').html(pageHtml);
 			}).fail(function(error){
 				//执行ajax之后的回调函数，比如隐藏loading
 				options.afterCallback && options.afterCallback();
