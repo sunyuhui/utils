@@ -12,7 +12,8 @@ define('cmp/pagination', function(require,exports, module) {
 		options = options || {};
 		options = $.extend({
 			pageSize: PAGE_SIZE,
-			currentPage: CURRENT_PAGE
+			currentPage: CURRENT_PAGE,
+			type: 'GET'
 		}, options);
 
 		var paginationStr = getPage(options.currentPage, options.totalPage);
@@ -87,8 +88,27 @@ define('cmp/pagination', function(require,exports, module) {
 			} else {
 				pageNum = +$this.text();
 			}
-			var pageHtml = getPage(pageNum, options.totalPage);
-			$('.pagination-list').html(pageHtml);
+			//获取表格数据
+			//执行ajax之前的回调函数，比如加个loading
+			options.beforeCallback && options.beforeCallback();
+			$.ajax({
+				url:options.url,
+				type: options.type,
+				data: options.data
+			}).done(function(res){
+				//执行ajax之后的回调函数，比如隐藏loading
+				options.afterCallback && options.afterCallback();
+				//请求成功后的回调函数
+				options.callback && options.callback(res);
+				// 更新页码
+				var pageHtml = getPage(pageNum, options.totalPage);
+				$('.pagination-list').html(pageHtml);
+			}).fail(function(error){
+				//执行ajax之后的回调函数，比如隐藏loading
+				options.afterCallback && options.afterCallback();
+				alert('请求出错，请重试');
+			});
+
 		});
 	}
 
