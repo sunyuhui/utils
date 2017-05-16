@@ -16,7 +16,13 @@ function deepClone(data) {
 		for(var key in data) {
 			if( dataType(data[key]) === 'Array' || dataType(data[key]) === 'Object' ) {
 				clonedData[key] = deepClone(data[key]);
-			} else {
+			} else if( dataType(data[key]) === 'Function' ) {
+				var source = data[key].toString();
+				source = new Function('return ' + source);
+				var target = source();
+				clonedData[key] = target;
+			}
+			else {
 				clonedData[key] = data[key];
 			}
 		}
@@ -25,11 +31,4 @@ function deepClone(data) {
 
 }
 
-var source = {
-	'name': "sunyuhui",
-	'age': function age(){console.log('22');}
-}
-
-var target = deepClone(source);
-console.log(target);
-// module.exports = deepClone;
+module.exports = deepClone;
