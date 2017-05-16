@@ -32,5 +32,5 @@ a.b = b;
 b.a = a;
 
 var target = deepClone(a);
-
-module.exports = deepClone;
+console.log(target);
+// module.exports = deepClone;
