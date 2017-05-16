@@ -1,10 +1,9 @@
 /**
- * @author sunhui04
+ * @author sunyuhui92@gmail.com
  */
 
 
 /**
- * [exports value]
  * @param  {} value [value]
  * @return {[String]}       [type of value]
  *  "Object"
